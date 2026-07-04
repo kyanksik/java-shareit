@@ -1,6 +1,6 @@
 package ru.practicum.shareit.item;
 
-import jakarta.validation.Valid;
+import org.springframework.validation.annotation.Validated;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import ru.practicum.shareit.item.dto.ItemDto;
+import ru.practicum.shareit.validation.Create;
 
 import java.util.Collection;
 
@@ -27,7 +28,7 @@ public class ItemController {
 
     @PostMapping
     public ItemDto create(@RequestHeader(USER_ID_HEADER) long userId,
-                          @Valid @RequestBody ItemDto item) {
+                          @Validated(Create.class) @RequestBody ItemDto item) {
         log.info("Добавление вещи пользователем id={}", userId);
         return itemService.create(userId, item);
     }

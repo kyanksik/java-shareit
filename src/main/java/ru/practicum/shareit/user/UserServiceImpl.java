@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.practicum.shareit.exception.ConflictException;
 import ru.practicum.shareit.exception.NotFoundException;
-import ru.practicum.shareit.exception.ValidationException;
 import ru.practicum.shareit.user.dto.UserDto;
 
 import java.util.Collection;
@@ -29,9 +28,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto create(UserDto dto) {
-        if (dto.getEmail() == null || dto.getEmail().isBlank()) {
-            throw new ValidationException("Электронная почта не может быть пустой");
-        }
         checkEmailUnique(dto.getEmail(), null);
         User created = userRepository.save(UserMapper.toModel(dto));
         return UserMapper.toDto(created);
