@@ -5,9 +5,18 @@ import ru.practicum.shareit.item.model.Comment;
 
 import java.util.List;
 
+/**
+ * Доступ к отзывам о вещах.
+ */
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 
+    /**
+     * Возвращает отзывы к вещи.
+     */
     List<Comment> findByItemId(Long itemId);
 
+    /**
+     * Возвращает отзывы к нескольким вещам.
+     */
     List<Comment> findByItemIdIn(List<Long> itemIds);
 }
