@@ -9,6 +9,9 @@ import org.springframework.web.util.DefaultUriBuilderFactory;
 import ru.practicum.shareit.client.BaseClient;
 import ru.practicum.shareit.request.dto.ItemRequestDto;
 
+/**
+ * Клиент gateway для обращения к эндпоинтам запросов вещей shareit-server.
+ */
 @Service
 public class RequestClient extends BaseClient {
     private static final String API_PREFIX = "/requests";
@@ -20,18 +23,30 @@ public class RequestClient extends BaseClient {
                 .build());
     }
 
+    /**
+     * Создаёт новый запрос вещи.
+     */
     public ResponseEntity<Object> create(long userId, ItemRequestDto dto) {
         return post("", userId, dto);
     }
 
+    /**
+     * Запрашивает запросы вещей пользователя вместе с ответами.
+     */
     public ResponseEntity<Object> getByRequestor(long userId) {
         return get("", userId);
     }
 
+    /**
+     * Запрашивает запросы вещей, созданные другими пользователями.
+     */
     public ResponseEntity<Object> getAll(long userId) {
         return get("/all", userId);
     }
 
+    /**
+     * Запрашивает запрос вещи по идентификатору вместе с ответами.
+     */
     public ResponseEntity<Object> getById(long userId, long requestId) {
         return get("/" + requestId, userId);
     }

@@ -12,6 +12,9 @@ import ru.practicum.shareit.client.BaseClient;
 import ru.practicum.shareit.item.dto.CommentDto;
 import ru.practicum.shareit.item.dto.ItemDto;
 
+/**
+ * Клиент gateway для обращения к эндпоинтам вещей shareit-server.
+ */
 @Service
 public class ItemClient extends BaseClient {
     private static final String API_PREFIX = "/items";
@@ -23,26 +26,44 @@ public class ItemClient extends BaseClient {
                 .build());
     }
 
+    /**
+     * Создаёт вещь от имени пользователя.
+     */
     public ResponseEntity<Object> create(long userId, ItemDto dto) {
         return post("", userId, dto);
     }
 
+    /**
+     * Редактирует вещь.
+     */
     public ResponseEntity<Object> update(long userId, long itemId, ItemDto dto) {
         return patch("/" + itemId, userId, dto);
     }
 
+    /**
+     * Запрашивает вещь по идентификатору.
+     */
     public ResponseEntity<Object> getById(long userId, long itemId) {
         return get("/" + itemId, userId);
     }
 
+    /**
+     * Запрашивает все вещи владельца.
+     */
     public ResponseEntity<Object> getByOwner(long userId) {
         return get("", userId);
     }
 
+    /**
+     * Ищет доступные вещи по тексту.
+     */
     public ResponseEntity<Object> search(String text) {
         return get("/search?text={text}", null, Map.of("text", text));
     }
 
+    /**
+     * Добавляет отзыв к вещи.
+     */
     public ResponseEntity<Object> addComment(long userId, long itemId, CommentDto dto) {
         return post("/" + itemId + "/comment", userId, dto);
     }

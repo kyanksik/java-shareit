@@ -9,6 +9,9 @@ import org.springframework.web.util.DefaultUriBuilderFactory;
 import ru.practicum.shareit.client.BaseClient;
 import ru.practicum.shareit.user.dto.UserDto;
 
+/**
+ * Клиент gateway для обращения к эндпоинтам пользователей shareit-server.
+ */
 @Service
 public class UserClient extends BaseClient {
     private static final String API_PREFIX = "/users";
@@ -20,22 +23,37 @@ public class UserClient extends BaseClient {
                 .build());
     }
 
+    /**
+     * Запрашивает всех пользователей.
+     */
     public ResponseEntity<Object> getAll() {
         return get("");
     }
 
+    /**
+     * Запрашивает пользователя по идентификатору.
+     */
     public ResponseEntity<Object> getById(long id) {
         return get("/" + id);
     }
 
+    /**
+     * Создаёт нового пользователя.
+     */
     public ResponseEntity<Object> create(UserDto dto) {
         return post("", dto);
     }
 
+    /**
+     * Обновляет данные пользователя.
+     */
     public ResponseEntity<Object> update(long id, UserDto dto) {
         return patch("/" + id, dto);
     }
 
+    /**
+     * Удаляет пользователя.
+     */
     public ResponseEntity<Object> delete(long id) {
         return delete("/" + id);
     }

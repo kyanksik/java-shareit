@@ -12,6 +12,11 @@ import org.springframework.lang.Nullable;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
+/**
+ * Базовый клиент для обращения к shareit-server по REST.
+ * Инкапсулирует формирование запросов, передачу заголовка пользователя
+ * и проброс ответа сервера (включая коды ошибок) обратно клиенту gateway.
+ */
 public class BaseClient {
     protected final RestTemplate rest;
 
