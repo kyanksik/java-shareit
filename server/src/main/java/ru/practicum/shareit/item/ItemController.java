@@ -1,9 +1,7 @@
 package ru.practicum.shareit.item;
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import ru.practicum.shareit.item.dto.CommentDto;
 import ru.practicum.shareit.item.dto.ItemBookingDto;
 import ru.practicum.shareit.item.dto.ItemDto;
-import ru.practicum.shareit.validation.Create;
 
 import java.util.Collection;
 
@@ -31,7 +28,7 @@ public class ItemController {
 
     @PostMapping
     public ItemDto create(@RequestHeader(USER_ID_HEADER) long userId,
-                          @Validated(Create.class) @RequestBody ItemDto item) {
+                          @RequestBody ItemDto item) {
         log.info("Добавление вещи пользователем id={}", userId);
         return itemService.create(userId, item);
     }
@@ -63,7 +60,7 @@ public class ItemController {
     @PostMapping("/{itemId}/comment")
     public CommentDto addComment(@RequestHeader(USER_ID_HEADER) long userId,
                                  @PathVariable long itemId,
-                                 @Valid @RequestBody CommentDto commentDto) {
+                                 @RequestBody CommentDto commentDto) {
         log.info("Добавление комментария к вещи id={} пользователем id={}", itemId, userId);
         return itemService.addComment(userId, itemId, commentDto);
     }
